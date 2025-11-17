@@ -1,0 +1,76 @@
+services:
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    volumes:
+      - "./seed:/docker-entrypoint-initdb.d"
+      - ./data/mysql:/var/lib/mysql
+
+  wordpress-kupa:
+    depends_on:
+      db:
+        condition: service_healthy
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - "8182:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: kupa
+
+      WORDPRESS_ADMIN_USER: ${WP_ADMIN_USERNAME}
+      WORDPRESS_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WORDPRESS_ADMIN_EMAIL: cvok.fran@gmail.com
+      WORDPRESS_URL: https://kupa.francvok.from.hr
+      WORDPRESS_TITLE: "Kuće na kupi"
+    volumes:
+      - ./data/kupa:/var/www/html/wp-content
+
+
+  wordpress-personal:
+    depends_on:
+      db:
+        condition: service_healthy
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - "8181:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: personal
+
+      WORDPRESS_ADMIN_USER: ${WP_ADMIN_USERNAME}
+      WORDPRESS_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WORDPRESS_ADMIN_EMAIL: cvok.fran@gmail.com
+      WORDPRESS_URL: https://home.francvok.from.hr
+      WORDPRESS_TITLE: "My Portfolio"
+    volumes:
+      - ./data/personal:/var/www/html/wp-content
+
+  phpmyadmin:
+    depends_on:
+      db:
+        condition: service_healthy
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8180:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+

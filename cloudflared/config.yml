@@ -1,0 +1,26 @@
+tunnel: a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6
+credentials-file: /home/fran/.cloudflared/6fe4ac0c-4d13-499e-b031-31065f16b611.json
+
+ingress:
+  - hostname: ssh.francvok.from.hr
+    service: ssh://192.168.0.127:8922
+
+  - hostname: webhook.francvok.from.hr
+    service: http://192.168.0.127:8999
+
+  # wordpress ports start with 8190
+  - hostname: mysql.francvok.from.hr
+    service: http://192.168.0.127:8180
+
+  - hostname: home.francvok.from.hr
+    service: http://192.168.0.127:8181
+
+  - hostname: kupa.francvok.from.hr
+    service: http://192.168.0.127:8182
+
+  # Other services
+  - hostname: treblle.francvok.from.hr
+    service: http://192.168.0.127:8092
+
+  # This last rule is a catch-all and must be the last one
+  - service: http_status:404

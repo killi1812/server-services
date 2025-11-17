@@ -1,0 +1,13 @@
+[Unit]
+Description=Webhook server
+
+[Service]
+EnvironmentFile=/home/fran/service/webhook/.env
+Type=exec
+ExecStart= webhook -nopanic -hooks /home/fran/service/webhook/hooks.yaml -port 8999 -verbose -template
+User=fran
+Group=fran
+
+[Install]
+WantedBy=multi-user.target
+
