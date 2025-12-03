@@ -8,6 +8,9 @@ ingress:
   - hostname: webhook.francvok.from.hr
     service: http://192.168.0.127:8999
 
+  - hostname: kuma.francvok.from.hr
+    service: http://192.168.0.127:8901
+
   # wordpress ports start with 8190
   - hostname: mysql.francvok.from.hr
     service: http://192.168.0.127:8180
