@@ -14,4 +14,6 @@ logs
 # data for containers
 data/
 backup/
+[Tt]mp
+[Tt]emp
 
