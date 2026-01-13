@@ -3,27 +3,27 @@ credentials-file: /home/fran/.cloudflared/6fe4ac0c-4d13-499e-b031-31065f16b611.j
 
 ingress:
   - hostname: ssh.francvok.from.hr
-    service: ssh://192.168.0.127:8922
+    service: ssh://localhost:8922
 
   - hostname: webhook.francvok.from.hr
-    service: http://192.168.0.127:8999
+    service: http://localhost:8999
 
   - hostname: kuma.francvok.from.hr
-    service: http://192.168.0.127:8901
+    service: http://localhost:8901
 
   # wordpress ports start with 8190
   - hostname: mysql.francvok.from.hr
-    service: http://192.168.0.127:8180
+    service: http://localhost:8180
 
   - hostname: home.francvok.from.hr
-    service: http://192.168.0.127:8181
+    service: http://localhost:8181
 
   - hostname: kupa.francvok.from.hr
-    service: http://192.168.0.127:8182
+    service: http://localhost:8182
 
   # Other services
   - hostname: treblle.francvok.from.hr
-    service: http://192.168.0.127:8092
+    service: http://localhost:8092
 
   # This last rule is a catch-all and must be the last one
   - service: http_status:404
