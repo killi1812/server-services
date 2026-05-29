@@ -11,9 +11,12 @@ ingress:
   - hostname: kuma.francvok.from.hr
     service: http://localhost:8901
 
+  - hostname: atuin.francvok.from.hr
+    service: http://localhost:8988
+
   # wordpress ports start with 8190
-  - hostname: mysql.francvok.from.hr
-    service: http://localhost:8180
+  #- hostname: mysql.francvok.from.hr
+  #  service: http://localhost:8180
 
   - hostname: home.francvok.from.hr
     service: http://localhost:8181
