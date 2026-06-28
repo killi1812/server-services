@@ -36,3 +36,17 @@
       parameter:
         source: "header"
         name: "X-Api-Key"
+
+- id: talents-api
+  execute-command: "scripts/deploy.sh"
+  command-working-directory: "/home/fran/service/webhook"
+  pass-arguments-to-command:
+    - source: string
+      name: "https://github.com/killi1812/talents-api.git"
+  trigger-rule:
+    match:
+      type: "value"
+      value: {{ getenv "WH_API_KEY" }}
+      parameter:
+        source: "header"
+        name: "X-Api-Key"

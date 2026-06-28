@@ -28,8 +28,11 @@ ingress:
   - hostname: treblle.francvok.from.hr
     service: http://localhost:8092
 
-  - hostname: ofladin.francvok.from.hr
+  - hostname: ofadin.francvok.from.hr
     service: http://localhost:8010
+
+  - hostname: talents.francvok.from.hr
+    service: http://localhost:8011
 
   # This last rule is a catch-all and must be the last one
   - service: http_status:404
